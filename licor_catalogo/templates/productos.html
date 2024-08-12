@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Productos{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Productos de Licores</h1>
+    <a href="{% url 'licor_catalogo:add_producto' %}" class="btn btn-primary mb-3">Agregar Nuevo Producto</a>
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
+                    <p class="card-text"><strong>Stock:</strong> {{ producto.stock }}</p>
+                    <a href="{% url 'licor_catalogo:mostrar_producto' producto.id %}" class="btn btn-outline-primary">Ver Detalles</a>
+                    <a href="{% url 'licor_catalogo:edit_producto' producto.id %}" class="btn btn-outline-secondary">Editar</a>
+                    <a href="{% url 'licor_catalogo:delete_producto' producto.id %}" class="btn btn-outline-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
